@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="content">
+
+    </ul>
+    <form onsubmit="data();return false">
+        <label for="">Name</label>
+        <input type="text" id="name">
+        <label for="">E-mail</label>
+        <input type="text" id="email">
+        <label for="">Phone</label>
+        <input type="number" id="phone">
+        <label for="">Gender</label>
+        <input type="text" id="gender">
+        <label for="">Country</label>
+        <input type="text" id="country">
+        <label for="">State</label>
+        <input type="text" id="state">
+        <label for="">City</label>
+        <input type="text" id="city">
+        <label for="">Percentage</label>
+        <input type="number" id="percentage">
+        <label for="">Maths</label>
+        <input type="text" id="maths">
+        <label for="">Physics</label>
+        <input type="text" id="physics">
+        <label for="">Chemistry</label>
+        <input type="text" id="chemistry">
+        <label for="">Computer Science</label>
+        <input type="text" id="computer">
+        <label for="">Previous School</label>
+        <input type="text" id="previousschool">
+        <input type="submit">
+    </form>
+
+    <script>
+        function data() {
+            var stu = {
+                Name: document.getElementById("name").value,
+                Email: document.getElementById("email").value,
+                Gender: document.getElementById("gender").value,
+                Phone: document.getElementById("phone").value,
+                Country: document.getElementById("country").value,
+                State: document.getElementById("state").value,
+                City: document.getElementById("city").value,
+                Percentage: document.getElementById("percentage").value,
+                Maths: document.getElementById("maths").value,
+                Physics: document.getElementById("physics").value,
+                Chemistry: document.getElementById("chemistry").value,
+                Computer_Science: document.getElementById("computer").value,
+                Previous_School: document.getElementById("previousschool").value,
+
+
+            }
+            console.log(stu)
+
+
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                        alert("success")
+                }
+            }
+            xhttp.open("POST", "http://localhost:3000/createFilm", true)
+            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhttp.send(JSON.stringify(stu))
+        }
+    </script>
+</body>
+
+</html>

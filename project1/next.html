@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>Document</title>
+</head>
+<body>
+    
+            <form onsubmit="data();return false">
+                    <label for="">date</label>
+                    <input type="date" id="date">
+                    <label for="">hour</label>
+                    <input type="number" id="hour">
+                    <label for="">comment</label>
+                    <input type="text" id="comment">
+                    <label for="">projectname</label>
+                    <input type="text" id="projectname">
+                    <input type="submit">
+    </form>
+    
+    <div id="list"></div>
+    <script>
+            function data() {
+                var stu = {
+                    date: document.getElementById("date").value,
+                    hour: document.getElementById("hour").value,
+                    projectname: document.getElementById("comment").value,
+                    comment: document.getElementById("projectname").value
+                
+                }
+                var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                        alert("success");
+                        getdata();
+                }else{
+                    console.log("error")
+                }
+            }
+            xhttp.open("POST", "http://localhost:3000/post", true)
+            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhttp.send(JSON.stringify(stu))
+        }
+;
+
+        function getdata(){
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                  console.log(this.responseText);
+                    //  document.getElementById("list").innerHTML=this.responseText;
+                        alert("success");
+                        
+                }
+                else
+                {
+                    console.log("eror")
+                }
+            }
+            xhttp.open("GET", "http://localhost:3000/get", true)
+            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhttp.send();
+        }
+        function filterdate(){
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                  console.log(this.responseText);
+                    //  document.getElementById("list").innerHTML=this.responseText;
+                        alert("success");
+                        
+                }
+                else
+                {
+                    console.log("eror")
+                }
+            }
+            xhttp.open("GET", "http://localhost:3000/filterdate/"+date, true)
+            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhttp.send();
+        }
+                    </script>
+</body>
+</html>

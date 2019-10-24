@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+   table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  text-align:right;
+}
+
+td{
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+    
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+    
+            <form onsubmit="data();return false">
+                    <label for="">date</label>
+                    <input class="form-control col-3" type="date" id="date">
+                    <label for="">hour</label>
+                    <input class="form-control col-3" type="number" id="hour">
+                    <label for="">comment</label>
+                    <input class="form-control col-3" type="text" id="comment">
+                    <label for="">projectname</label>
+                    <input class="form-control col-3" type="text" id="projectname">
+    
+                    <input class="btn btn-primary" type="submit">
+    </form>
+    </div>
+    <div>
+      <form onsubmit="filter()">
+  <input type="date" id="data">
+  <input type="submit">
+
+      </form>
+
+
+    </div>
+    <div id="list"style="width:1000px;height:400px;">
+        
+        </div>
+    <script>
+            function data() {
+                var stu = {
+                    date: document.getElementById("date").value,
+                    hour: document.getElementById("hour").value,
+                    comment: document.getElementById("comment").value,
+                    projectname: document.getElementById("projectname").value
+                
+                }
+               getdata();
+                var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                        alert("success");
+                       
+                }else{
+                    console.log("error")
+                }
+            }
+            xhttp.open("POST", "http://localhost:3000/post", true)
+            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhttp.send(JSON.stringify(stu))
+        }
+;
+
+        function getdata(){
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                  console.log(this.responseText);
+                  for (i=0;i<JSON.parse(this.responseText).rows.length;i++){
+                   var main= JSON.parse(this.responseText).rows[i];
+                 document.getElementById("list").innerHTML+="<table><tr><td>"+main.date+"</td><td>"+main.projectname+"</td><td>"+main.hour+"</td><td>"+main.comment+"</td></tr></table>";
+                    
+                  }
+                        
+                }
+                else
+                {
+                    console.log("eror")
+                }
+                function filter(){
+                    var src= JSON.parse(this.responseText).rows;
+                    src.filter(()=>{
+                      
+                          
+                       
+                    })   
+                   
+
+                }
+            }
+
+            xhttp.open("GET", "http://localhost:3000/get", true)
+            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhttp.send();
+        }
+                    </script>
+</body>
+</html>
